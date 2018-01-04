@@ -7,44 +7,55 @@
 </head>
 <body>
 
+  <!-- use keycode.info to find the codes for specific keys really easily -->
 
   <div class="keys">
+
     <div data-key="65" class="key">
       <kbd>A</kbd>
       <span class="sound">clap</span>
     </div>
+
     <div data-key="83" class="key">
       <kbd>S</kbd>
       <span class="sound">hihat</span>
     </div>
+
     <div data-key="68" class="key">
       <kbd>D</kbd>
       <span class="sound">kick</span>
     </div>
+
     <div data-key="70" class="key">
       <kbd>F</kbd>
       <span class="sound">openhat</span>
     </div>
+
     <div data-key="71" class="key">
       <kbd>G</kbd>
       <span class="sound">boom</span>
     </div>
+
     <div data-key="72" class="key">
       <kbd>H</kbd>
       <span class="sound">ride</span>
     </div>
+
     <div data-key="74" class="key">
       <kbd>J</kbd>
       <span class="sound">snare</span>
     </div>
+
     <div data-key="75" class="key">
       <kbd>K</kbd>
       <span class="sound">tom</span>
     </div>
+
     <div data-key="76" class="key">
       <kbd>L</kbd>
       <span class="sound">tink</span>
     </div>
+
   </div>
 
   <audio data-key="65" src="sounds/clap.wav"></audio>
@@ -58,6 +69,26 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+
+function playSound (e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); // selects the audio with corresponding keyCode
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);  // selects the class with corresponding keyCode
+    if (!audio) return; // stops the function if the key pressed isn't associated with audio
+    audio.currentTime = 0; // rewinds to the start so you can continuously press the keys
+    audio.play();
+    key.classList.add('playing');
+  }
+
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return; // skip if the transition isn't transform
+    this.classList.remove('playing');
+  }
+
+  const keys = document.querySelectorAll('.key');
+
+  window.addEventListener('keydown', playSound)
+// transition end event ( when the css transition ends )
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 
 </script>
 
