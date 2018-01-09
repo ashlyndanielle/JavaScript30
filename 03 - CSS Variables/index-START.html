@@ -22,6 +22,22 @@
 
   <style>
 
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
+
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -45,6 +61,24 @@
   </style>
 
   <script>
+
+    const inputs = document.querySelectorAll(".controls input") // this gives you a "node list" not an array; doesn't give you all of the methods that you can use on an array
+    // foreach method is supported for node lists
+
+    function handleUpdate() {
+      // dataset: html element will have a dataset if you added any data- attributes to it
+      // i.e. the blur and spacing inputs have a dataset that is an object of {sizing: 'px'}
+      const suffix = this.dataset.sizing || "";
+      // document.documentElement selects the root element
+      // below will select root and change the style of either --base, --spacing, or --blur
+      // based on the element currently selected's name attribute
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
   </script>
 
 </body>
