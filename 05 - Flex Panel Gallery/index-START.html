@@ -135,7 +135,7 @@
       var openPanel = [...panels].map( panel => panel.classList );
 
       function toggleOpen() {
-        // if the selected panel isn't already open, close all other panels and then run toggle
+        // if the selected panel isn't already open, close all other panels first
         if (!this.classList.value.includes('open')) {
           console.log("I don't include open")
           for ( var x = 0; x < openPanel.length; x++ ) {
@@ -146,6 +146,7 @@
         } else {
           console.log("I include open")
         }
+        // ...then open
         this.classList.toggle('open');
       }
 
