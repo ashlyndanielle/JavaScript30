@@ -21,7 +21,7 @@ const cities = [];
 fetch(endpoint)
   // fetch will return a promise but the data, although already a json object, is unknown to the browser so we have to use .json()
   .then( blob => blob.json() )
-  // this returns another promise so we can spread the data into our cities array
+  // this returns another promise and then we can spread the data into our cities array
   .then( data => cities.push(...data) );
 
 function findMatches(wordToMatch, cities) {
