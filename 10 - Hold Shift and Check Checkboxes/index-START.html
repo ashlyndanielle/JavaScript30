@@ -31,7 +31,7 @@
     }
 
 
-    input:checked + p {
+    input:checked + label {
       background:#F9F9F9;
       text-decoration: line-through;
     }
@@ -40,7 +40,7 @@
       margin:20px;
     }
 
-    p {
+    label {
       margin:0;
       padding:20px;
       transition:background 0.2s;
@@ -61,44 +61,76 @@
   -->
   <div class="inbox">
     <div class="item">
-      <input type="checkbox">
-      <p>This is an inbox layout.</p>
+      <input id="one" type="checkbox">
+      <label for="one">This is an inbox layout.</label>
     </div>
     <div class="item">
-      <input type="checkbox">
-      <p>Check one item</p>
+      <input id="two" type="checkbox">
+      <label for="two">Check one item</lable>
     </div>
     <div class="item">
-      <input type="checkbox">
-      <p>Hold down your Shift key</p>
+      <input id="three" type="checkbox">
+      <label for="three">Hold down your Shift key</label>
     </div>
     <div class="item">
-      <input type="checkbox">
-      <p>Check a lower item</p>
+      <input id="four" type="checkbox">
+      <label for="four">Check a lower item</label>
     </div>
     <div class="item">
-      <input type="checkbox">
-      <p>Everything inbetween should also be set to checked</p>
+      <input id="five" type="checkbox">
+      <label for="five">Everything inbetween should also be set to checked</label>
     </div>
     <div class="item">
-      <input type="checkbox">
-      <p>Try do it with out any libraries</p>
+      <input id="six" type="checkbox">
+      <label for="six">Try do it with out any libraries</label>
     </div>
     <div class="item">
-      <input type="checkbox">
-      <p>Just regular JavaScript</p>
+      <input id="seven" type="checkbox">
+      <label for="seven">Just regular JavaScript</label>
     </div>
     <div class="item">
-      <input type="checkbox">
-      <p>Good Luck!</p>
+      <input id="eight" type="checkbox">
+      <label for="eight">Good Luck!</label>
     </div>
     <div class="item">
-      <input type="checkbox">
-      <p>Don't forget to tweet your result!</p>
+      <input id="nine" type="checkbox">
+      <label for="nine">Don't forget to tweet your result!</label>
     </div>
   </div>
 
 <script>
+
+  function handleCheck(e) {
+    // check if they have the shift key down
+    // AND check that they are checking it, not UN-checking it
+    let inBetween = false;
+    if( e.shiftKey && this.checked ) {
+      checkboxes.forEach( checkbox => {
+        if (checkbox === this || checkbox === lastChecked) {
+          // the checkboxes are looped through top to bottom
+          // if the checkbox is equal to last check or this
+          // then inBetween is set to true.....
+          inBetween = !inBetween;
+        }
+        // ...while inBetween is set to true
+        // the checkboxes are set to checked
+        if (inBetween) {
+          console.log('true: ', checkbox);
+          checkbox.checked = true;
+        }
+      })
+    }
+    // after the function runs, reset lastChecked
+    lastChecked = this;
+  }
+
+  const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+  let lastChecked;
+
+  checkboxes.forEach( checkbox => {
+    checkbox.addEventListener('click', handleCheck);
+  })
+
 </script>
 </body>
 </html>
