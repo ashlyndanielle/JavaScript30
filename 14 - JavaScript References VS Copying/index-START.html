@@ -8,15 +8,31 @@
 
   <script>
     // start with strings, numbers and booleans
+    let age = 100;
+    let age2 = age;
+    console.log(age, age2);
+    age = 200;
+    console.log(age, age2);
+
+    let name = 'Ash';
+    let name2 = name;
+    console.log(name, name2);
+    name2 = 'Ashlyn';
+    console.log(name, name2);
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
+    const team = players;
+    console.log(players, team);
 
     // You might think we can just do something like this:
-
+    // team[3] = 'Lux';
     // however what happens when we update that array?
+
+    // unlike numbers, strings and booleans, it makes a reference
+    // instead of a copy
 
     // now here is the problem!
 
@@ -25,6 +41,16 @@
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
+    
+    const team2 = players.slice();
+    const team3 = [].concat(players);
+    // es6 way
+    const team4 = [...players];
+    const team5 = Array.from(players);
+
+
+    team2[3] = 'Ashlyn';
+    console.log(players, team2);
 
     // one way
 
@@ -45,10 +71,41 @@
     // and think we make a copy:
 
     // how do we take a copy instead?
+    const captain = Object.assign({}, person, { number: 99, age: 12 });
+    console.log(person, captain);
 
     // We will hopefully soon see the object ...spread
-
+    const captain2 = {...person};
+    captain2['position'] = 'forward';
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    
+    const ashlyn = {
+      name: 'Ashlyn',
+      age: 26,
+      social: {
+        twitter: '@ashmit',
+        facebook: 'ashlyn.developer'
+      }
+    }
+    console.log(ashlyn);
+    const dev = Object.assign({}, ashlyn);
+    dev.name = 'Ash';
+
+    console.clear();
+    console.log(ashlyn);
+    console.log(dev);
+
+    console.log('______________________________________________________________________');
+
+    dev.social.twitter = '@theBest';
+    // UH OH!!! Only works one level deep :/
+    console.log(ashlyn);
+
+    // this is a hack...probably shouldn't do this...
+    const dev2 = JSON.parse(JSON.stringify(ashlyn));
+    dev2.social.twitter = '@thisIsAHack';
+    console.log(ashlyn);
+    console.log(dev2);
 
   </script>
 
