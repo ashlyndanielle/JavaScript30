@@ -6,7 +6,7 @@
 </head>
 <body>
 
-  <div class="hero">
+  <div id="hero">
     <h1 contenteditable>🔥WOAH!</h1>
   </div>
 
@@ -20,7 +20,7 @@
     margin: 0;
   }
 
-  .hero {
+  #hero {
     min-height: 100vh;
     display:flex;
     justify-content: center;
@@ -35,6 +35,40 @@
   </style>
 
 <script>
+  const hero = document.getElementById('hero');
+  const text = document.querySelector("h1");
+
+  function shadow(e) {
+    const { offsetWidth: width, offsetHeight: height } = hero;
+    let { offsetX: x, offsetY: y } = e;
+    const walk = 100;
+
+    // console.log(this, e.target);
+    // console.log('left: ', e.target.offsetLeft);
+    // console.log('top: ', e.target.offsetTop);
+
+    // "this" will always be "hero" but the target will change
+    // to the child if you hover over a child of "hero"
+    if (this !== e.target) {
+      // these values are constant and in this case are how far
+      // from the left and top the h1 tag is located
+      x = x + e.target.offsetLeft;
+      y = y + e.target.offsetTop;
+    }
+
+    const xWalk = (x / width * walk) - (walk / 2);
+    // console.log(x/width);  on the far right, this will be 1 and far left this will be 0
+    // console.log('walk', x/width * walk); far right: 100, far left: 0;
+    // console.log(xWalk); this gives us 50 on the far right and -50 on the far left
+
+    const yWalk = (y / height * walk) - (walk / 2);
+    // console.log(yWalk); 50 on the bottom, -50 on the top
+
+    // console.log(text);
+  }
+
+  hero.addEventListener('mousemove', shadow);
+
 </script>
 </body>
 </html>
