@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mouse Shadow</title>
+  <title>🔥 Mouse Shadow 🔥</title>
 </head>
 <body>
 
   <div id="hero">
-    <h1 contenteditable>🔥WOAH!</h1>
+    <h1 contenteditable>WOAH!</h1>
   </div>
 
   <style>
@@ -29,7 +29,7 @@
   }
 
   h1 {
-    text-shadow: 10px 10px 0 rgba(0,0,0,1);
+    text-shadow: 10px 10px 10px rgba(0,0,0,1);
     font-size: 100px;
   }
   </style>
@@ -50,21 +50,21 @@
     // "this" will always be "hero" but the target will change
     // to the child if you hover over a child of "hero"
     if (this !== e.target) {
-      // these values are constant and in this case are how far
+      // these values are constant and are how far
       // from the left and top the h1 tag is located
       x = x + e.target.offsetLeft;
       y = y + e.target.offsetTop;
     }
 
-    const xWalk = (x / width * walk) - (walk / 2);
+    const xWalk = -1 * ((x / width * walk) - (walk / 2));
     // console.log(x/width);  on the far right, this will be 1 and far left this will be 0
     // console.log('walk', x/width * walk); far right: 100, far left: 0;
     // console.log(xWalk); this gives us 50 on the far right and -50 on the far left
 
-    const yWalk = (y / height * walk) - (walk / 2);
+    const yWalk = -1 * ((y / height * walk) - (walk / 2));
     // console.log(yWalk); 50 on the bottom, -50 on the top
 
-    // console.log(text);
+    text.style.textShadow = `${xWalk}px ${yWalk}px 10px rgba(0,0,0,1)`
   }
 
   hero.addEventListener('mousemove', shadow);
